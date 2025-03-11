@@ -1,13 +1,63 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Space Background */
+.space-background {
+  position: relative;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%); /* Dark gradient for space */
+  overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Stars */
+.space-background::before,
+.space-background::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 1;
+  opacity: 0.8;
+}
+
+/* First layer of stars */
+.space-background::before {
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 1px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 1px),
+    radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 1px);
+  background-size: 50px 50px, 100px 100px, 150px 150px;
+  background-position: 0 0, 30px 30px, 60px 60px;
+  animation: moveStars 200s linear infinite;
+}
+
+/* Second layer of stars with twinkling effect */
+.space-background::after {
+  background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 1px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 1px);
+  background-size: 75px 75px, 125px 125px;
+  background-position: 0 0, 50px 50px;
+  animation: moveStars 250s linear infinite, twinkle 2s infinite alternate;
+}
+
+/* Animation for moving stars */
+@keyframes moveStars {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Twinkling effect */
+@keyframes twinkle {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
